@@ -7,11 +7,21 @@
 <body>
 	Register Person
 	<form action="/savePerson" method="post">
-	<label>Name</label>
-	<input name="name">
-	<label>Last Name</label>
-	<input name="LastName">
-	<input type="submit" value="Save">
+		<label>Name</label>
+		<input name="name">
+		<label>Last Name</label>
+		<input name="LastName">
+		<input type="submit" value="Save">
 	</form>
+	
+	<a href="/listPeople">List People</a>
+	
+	<table>
+		<tr th:each = "person : ${people}">
+		<td th:text = "${person.id}"></td>
+		<td th:text = "${person.name}"></td>
+		<td th:text = "${person.lastName}"></td>
+		</tr>
+	</table>
 </body>
 </html>
