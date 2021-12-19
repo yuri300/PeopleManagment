@@ -1,7 +1,11 @@
 package com.br.spring.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +20,10 @@ public class PersonController {
 	private PersonRepository personRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/registerPerson")
-	public String begin() {
-		return "register/registerPerson";
+	public ModelAndView begin() {
+		ModelAndView mv = new ModelAndView("register/registerPerson");
+		mv.addObject("personobj", new Person());
+		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/savePerson")
@@ -27,6 +33,7 @@ public class PersonController {
 		ModelAndView mv = new ModelAndView("register/registerPerson");
 		Iterable<Person> personIt = personRepository.findAll();
 		mv.addObject("people", personIt);
+		mv.addObject("personobj", new Person());
 		return mv;
 	}
 	
@@ -35,6 +42,15 @@ public class PersonController {
 		ModelAndView mv = new ModelAndView("register/registerPerson");
 		Iterable<Person> personIt = personRepository.findAll();
 		mv.addObject("people", personIt);
+		mv.addObject("personobj", new Person());
+		return mv;
+	}
+	
+	@GetMapping("/editPerson/{idPerson}")
+	public ModelAndView Edit(@PathVariable("idPerson") Long idPerson) {
+		Optional<Person> person = personRepository.findById(idPerson);
+		ModelAndView mv = new ModelAndView("register/registerPerson");
+		mv.addObject("personobj", person.get());
 		return mv;
 	}
 }
