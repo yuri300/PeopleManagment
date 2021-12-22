@@ -53,4 +53,14 @@ public class PersonController {
 		mv.addObject("personobj", person.get());
 		return mv;
 	}
+	
+	@GetMapping("/deletePerson/{idPerson}")
+	public ModelAndView Delete(@PathVariable("idPerson") Long idPerson) {
+		
+		personRepository.deleteById(idPerson);
+		ModelAndView mv = new ModelAndView("register/registerPerson");
+		mv.addObject("people", personRepository.findAll());
+		mv.addObject("personobj", new Person());
+		return mv;
+	}
 }

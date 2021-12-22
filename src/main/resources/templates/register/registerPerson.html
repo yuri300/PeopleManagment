@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Register Person</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
@@ -30,6 +30,7 @@
 		<td th:text = "${person.name}"></td>
 		<td th:text = "${person.lastName}"></td>
 		<td><a th:href="@{/editPerson/{idPerson}(idPerson=${person.id})}">Edit</a></td>
+		<td><a th:href="@{/deletePerson/{idPerson}(idPerson=${person.id})}">Delete</a></td>
 		</tr>
 	</table>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
