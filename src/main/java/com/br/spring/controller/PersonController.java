@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.spring.model.Person;
@@ -60,6 +62,14 @@ public class PersonController {
 		personRepository.deleteById(idPerson);
 		ModelAndView mv = new ModelAndView("register/registerPerson");
 		mv.addObject("people", personRepository.findAll());
+		mv.addObject("personobj", new Person());
+		return mv;
+	}
+	
+	@PostMapping("**/searchPerson")
+	public ModelAndView searchPerson(@RequestParam("nameSearch") String nameSearch) {
+		ModelAndView mv = new ModelAndView("register/registerPerson");
+		mv.addObject("people", personRepository.findPersonByName(nameSearch));
 		mv.addObject("personobj", new Person());
 		return mv;
 	}

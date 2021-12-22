@@ -19,10 +19,24 @@
 		
 		<label>Last Name</label>
 		<input name="LastName" th:field="*{lastName}">
-		<input type="submit" value="Save">
+		<input class="waves-effect waves-light btn" type="submit"  value="Save">
 	</form>
 	
+	</br>
+	</br>
 	<a href="/listPeople">List People</a>
+	</br>
+	</br>
+	
+	<form action="searchPerson" method="post">
+	<label>Search by Name:</label>
+		<input name="nameSearch">
+		<input class="waves-effect waves-light btn" type="submit" value="Search">
+	</form>
+	
+	</br>
+	</br>
+	
 	
 	<table>
 		<tr th:each = "person : ${people}">
