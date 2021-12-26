@@ -7,38 +7,78 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
       <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+<style type="text/css">
+table.striped>tbody>tr:nth-child(odd) {
+	background-color: rgba(158, 154, 154, 0.5);
+}
+
+form input[type=submit] {
+	color: white;
+}
+</style>
+
 </head>
 <body>
-	Register Person
-	<form action="/savePerson" method="post" th:object="${personobj}">
-		<label>ID</label>
-		<input name="id" th:field="*{id}" readonly="readonly">
-		
-		<label>Name</label>
-		<input name="name" th:field="*{name}">
-		
-		<label>Last Name</label>
-		<input name="LastName" th:field="*{lastName}">
-		<input class="waves-effect waves-light btn" type="submit"  value="Save">
-	</form>
+	<h5>Register Person</h5>
+	<div class="row">
+	<form action="/savePerson" id="formPerson" method="post" th:object="${personobj}" class="col s12">
+
+			<div class="row">
+				<div class="input-field col s6">
+					<label for="id" class="active">ID</label> 
+					<input name="id" class="validate" th:field="*{id}" id="id"
+						readonly="readonly">
+				</div>
+				<div class="input-field col s6">
+					<label for="name" class="active">Name</label> 
+					<input name="name" class="validate" th:field="*{name}" id="name">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="lastName" class="active">Last Name</label> 
+					<input name="LastName" class="validate" th:field="*{lastName}" id="lastName">
+				</div>
+			</div>
+			<div class="row">
+			<div class="input-field col s12">
+				<input class="waves-effect waves-light btn" type="submit" value="Save">
+				<button class="waves-effect waves-light btn" onclick="document.getElementById('formPerson').reset();">Clear Fields</button>
+			</div>
+			</div>
+		</form>
+	</div>
+	</br>
+	</br>
+
+	<div class="row">
+		<form action="searchPerson" method="post" class="col s12">
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="nameSearch" class="active">Search by Name:</label> 
+					<input name="nameSearch" id="nameSearch" class="validate"> 
+					<input class="waves-effect waves-light btn" type="submit" value="Search">
+					<a class="waves-effect waves-light btn" href="/listPeople">List People</a>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	</br>
+	</br>
 	
-	</br>
-	</br>
-	<a href="/listPeople">List People</a>
-	</br>
-	</br>
 	
-	<form action="searchPerson" method="post">
-	<label>Search by Name:</label>
-		<input name="nameSearch">
-		<input class="waves-effect waves-light btn" type="submit" value="Search">
-	</form>
-	
-	</br>
-	</br>
-	
-	
-	<table>
+	<table class="striped">
+	<thead>
+	<tr>
+	<td>ID</td>
+	<td>Name</td>
+	<td>Last Name</td>
+	<td>Edit</td>
+	<td>Delete</td>
+	</tr>
+	</thead>
 		<tr th:each = "person : ${people}">
 		<td th:text = "${person.id}"></td>
 		<td th:text = "${person.name}"></td>
