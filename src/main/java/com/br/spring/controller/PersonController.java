@@ -24,6 +24,8 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.GET, value = "/registerPerson")
 	public ModelAndView begin() {
 		ModelAndView mv = new ModelAndView("register/registerPerson");
+		Iterable<Person> personIt = personRepository.findAll();
+		mv.addObject("people", personIt);
 		mv.addObject("personobj", new Person());
 		return mv;
 	}
@@ -71,6 +73,14 @@ public class PersonController {
 		ModelAndView mv = new ModelAndView("register/registerPerson");
 		mv.addObject("people", personRepository.findPersonByName(nameSearch));
 		mv.addObject("personobj", new Person());
+		return mv;
+	}
+	
+	@GetMapping("/Phones/{idPerson}")
+	public ModelAndView Phones(@PathVariable("idPerson") Long idPerson) {
+		Optional<Person> person = personRepository.findById(idPerson);
+		ModelAndView mv = new ModelAndView("register/Phones");
+		mv.addObject("personobj", person.get());
 		return mv;
 	}
 }

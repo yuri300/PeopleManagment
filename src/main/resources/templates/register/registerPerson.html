@@ -81,7 +81,7 @@ form input[type=submit] {
 	</thead>
 		<tr th:each = "person : ${people}">
 		<td th:text = "${person.id}"></td>
-		<td th:text = "${person.name}"></td>
+		<td><a th:href="@{/Phones/{idPerson}(idPerson=${person.id})}"><span th:text = "${person.name}"></span></a></td>
 		<td th:text = "${person.lastName}"></td>
 		<td><a th:href="@{/editPerson/{idPerson}(idPerson=${person.id})}">Edit</a></td>
 		<td><a th:href="@{/deletePerson/{idPerson}(idPerson=${person.id})}">Delete</a></td>
