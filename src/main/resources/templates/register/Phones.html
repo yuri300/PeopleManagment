@@ -20,15 +20,39 @@ form input[type=submit] {
 </head>
 <body>
 	<h5>Register Person</h5>
-	<a class="waves-effect waves-light btn" href="/registerPerson">Register Person</a>
+	<a class="waves-effect waves-light btn" href="/registerPerson">Register
+		Person</a>
 	<div th:each="p : ${personobj}">
+		<div class="row">
+			<p>
+				ID: <span th:text="${p.id}"></span>
+			</p>
+			<p>
+				Name: <span th:text="${p.name}"></span>
+			</p>
+			<p>
+				Last Name: <span th:text="${p.lastName}"></span>
+			</p>
+		</div>
+	</div>
+
+	<h5>Phones</h5>
 	<div class="row">
-	<p>ID: <span th:text="${p.id}"></span></p>
-	<p>Name: <span th:text="${p.name}"></span></p>
-	<p>Last Name: <span th:text="${p.lastName}"></span></p>
+		<form th:action="@{/addPhonePerson/{personId}(personId=${personobj.id})}" method="post" class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
+					<label class="active" for="number">Number: </label> <input
+						id="number" name="number" class="validate">
+				</div>
+				<div class="input-field col s6">
+					<label class="active" for="type">Type: </label> <input id="type"
+						name="type" class="validate">
+				</div>
+			<input type="submit" value="Add" class="waves-effect waves-light btn">
+			</div>
+		</form>
 	</div>
-	</div>
-	
+
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>
