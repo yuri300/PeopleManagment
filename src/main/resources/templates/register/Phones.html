@@ -53,6 +53,14 @@ form input[type=submit] {
 		</form>
 	</div>
 
+	<table class="striped">
+		<tr th:each="phone:${phones}">
+		<td th:text="${phone.number}"></td>
+		<td th:text="${phone.type}"></td>
+		<td><a th:href="@{/deletePhone/{idPhone}(idPhone=${phone.id})}">Delete</a></td>
+		</tr>
+	</table>
+
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>

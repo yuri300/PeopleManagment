@@ -86,6 +86,7 @@ public class PersonController {
 		Optional<Person> person = personRepository.findById(idPerson);
 		ModelAndView mv = new ModelAndView("register/Phones");
 		mv.addObject("personobj", person.get());
+		mv.addObject("phones", phoneRepository.getPhones(idPerson));
 		return mv;
 	}
 	
@@ -96,6 +97,20 @@ public class PersonController {
 		phoneRepository.save(phone);
 		ModelAndView mv = new ModelAndView("register/Phones");
 		mv.addObject("personobj", person);
+		mv.addObject("phones", phoneRepository.getPhones(personId));
+		return mv;
+	}
+	
+	@GetMapping("/deletePhone/{idPhone}")
+	public ModelAndView deletePhone(@PathVariable("idPhone") Long idPhone) {
+		
+		Person person = phoneRepository.findById(idPhone).get().getPerson();
+		
+		phoneRepository.deleteById(idPhone);
+		
+		ModelAndView mv = new ModelAndView("register/phones");
+		mv.addObject("personobj", new Person());
+		mv.addObject("phones", phoneRepository.getPhones(person.getId()));
 		return mv;
 	}
 }

@@ -3,6 +3,7 @@ package com.br.spring.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Person implements Serializable{
 	
 	private String lastName;
 	
-	@OneToMany(mappedBy = "person")
+	@OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Phone> phone;
 
 	
