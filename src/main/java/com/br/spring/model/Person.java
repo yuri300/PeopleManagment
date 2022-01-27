@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Person implements Serializable{
@@ -18,9 +20,12 @@ public class Person implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	
+	@NotEmpty(message = "The name can't be empty.")
+	@NotNull(message = "The name can't be null.")
 	private String name;
 	
+	@NotEmpty(message = "The last name can't be empty.")
+	@NotNull(message = "The last name can't be null.")
 	private String lastName;
 	
 	@OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)

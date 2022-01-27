@@ -1,9 +1,16 @@
 package com.br.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +42,23 @@ public class PersonController {
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/savePerson")
-	public ModelAndView savePerson(Person person) {
+	@RequestMapping(method = RequestMethod.POST, value = "**/savePerson")
+	public ModelAndView savePerson(@Valid Person person, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors()) {
+			ModelAndView mv = new ModelAndView("register/registerPerson");
+			Iterable<Person> personIt = personRepository.findAll();
+			mv.addObject("people", personIt);
+			mv.addObject("personobj", person);
+			
+			List<String> msg = new ArrayList<String>();
+			for (ObjectError objectError : bindingResult.getAllErrors()) {
+				msg.add(objectError.getDefaultMessage());
+			}
+			mv.addObject("msg", msg);
+			return mv;
+		}
+		
 		personRepository.save(person);
 		
 		ModelAndView mv = new ModelAndView("register/registerPerson");
