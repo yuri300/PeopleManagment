@@ -115,6 +115,25 @@ public class PersonController {
 	@PostMapping("**/addPhonePerson/{personId}")
 	public ModelAndView addPhonePerson(Phone phone,@PathVariable("personId") Long personId) {
 		Person person = personRepository.findById(personId).get();
+		
+		if(phone != null && phone.getNumber().isEmpty() || phone.getType().isEmpty()) {
+			
+			
+			ModelAndView mv = new ModelAndView("register/Phones");
+			mv.addObject("personobj", person);
+			mv.addObject("phones", phoneRepository.getPhones(personId));
+			List<String> msg = new ArrayList<String>();
+			
+			if(phone.getNumber().isEmpty()) {
+				msg.add("The number must be typed.");				
+			}
+			
+			if(phone.getType().isEmpty()) {
+				msg.add("The type must be typed.");				
+			}
+			mv.addObject("msg", msg);
+			return mv;
+		}
 		phone.setPerson(person);
 		phoneRepository.save(phone);
 		ModelAndView mv = new ModelAndView("register/Phones");

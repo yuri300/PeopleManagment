@@ -37,8 +37,14 @@ form input[type=submit] {
 	</div>
 
 	<h5>Phones</h5>
+	<br>
+	<div th:each="m : ${msg}">
+		<span th:text="${m}"></span>
+	</div>
+	<br>
 	<div class="row">
-		<form th:action="@{/addPhonePerson/{personId}(personId=${personobj.id})}" method="post" class="col s12">
+		<form th:action="@{/addPhonePerson/{personId}(personId=${personobj.id})}" 
+		method="post" class="col s12" onsubmit="return validateFields()? true: false">
 			<div class="row">
 				<div class="input-field col s6">
 					<label class="active" for="number">Number: </label> <input
@@ -63,5 +69,20 @@ form input[type=submit] {
 
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript">
+		function validateFields() {
+			number = document.getElementById('number').value;
+			type = document.getElementById('type').value;
+		
+		if(number === ''){
+			alert('Number field empty must be typed')
+			return false;
+		} else if(type === ''){
+			alert('Type field empty must be typed');
+			return false;
+		}
+		return true;
+		}
+	</script>
 </body>
 </html>
