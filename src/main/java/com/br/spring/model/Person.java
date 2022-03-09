@@ -28,7 +28,11 @@ public class Person implements Serializable{
 	@NotNull(message = "The last name can't be null.")
 	private String lastName;
 	
-	@OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
+	@NotNull(message = "The age can't be null.")
+	private int age;
+	
+
+	@OneToMany(mappedBy = "person", orphanRemoval = false, cascade = CascadeType.ALL)
 	private List<Phone> phone;
 
 	
@@ -37,7 +41,8 @@ public class Person implements Serializable{
 	}
 
 	public void setPhones(List<Phone> phone) {
-		this.phone = phone;
+		this.phone.clear();
+		this.phone.addAll(phone);
 	}
 
 	public Long getId() {
@@ -63,5 +68,12 @@ public class Person implements Serializable{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public int getAge() {
+		return age;
+	}
 
+	public void setAge(int age) {
+		this.age = age;
+	}
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Register Person</title>
@@ -48,6 +49,12 @@ form input[type=submit] {
 					<input name="LastName" class="validate" th:field="*{lastName}" id="lastName">
 				</div>
 			</div>
+			<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+				<div class="input-field col s12">
+					<label for="age" class="active">Age</label> 
+					<input name="age" class="validate" th:field="*{age}" id="age">
+				</div>
+			</div>
 			<div class="row">
 			<div class="input-field col s12">
 				<input class="waves-effect waves-light btn" type="submit" value="Save">
@@ -82,6 +89,7 @@ form input[type=submit] {
 	<td>ID</td>
 	<td>Name</td>
 	<td>Last Name</td>
+	<td>Age</td>
 	<td>Edit</td>
 	<td>Delete</td>
 	</tr>
@@ -90,6 +98,7 @@ form input[type=submit] {
 		<td th:text = "${person.id}"></td>
 		<td><a th:href="@{/Phones/{idPerson}(idPerson=${person.id})}"><span th:text = "${person.name}"></span></a></td>
 		<td th:text = "${person.lastName}"></td>
+		<td th:text = "${person.age}"></td>
 		<td><a th:href="@{/editPerson/{idPerson}(idPerson=${person.id})}">Edit</a></td>
 		<td><a th:href="@{/deletePerson/{idPerson}(idPerson=${person.id})}">Delete</a></td>
 		</tr>
